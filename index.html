@@ -45,7 +45,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="panier.html">Panier <i class="fas fa-shopping-basket"></i> <span class="badge badge-light">0</span></a>
+                                    <a class="nav-link" href="panier.html">Panier <i class="fas fa-shopping-basket"></i> <span class="badge badge-light"><span id="productsTotal">0</span> – <span id="priceTotal">0 €</span></span></a>
                                 </li>
                             </ul>
                             <!-- MENU ] -->
@@ -86,12 +86,16 @@
                         <div class="row">
                             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
                                 <div class="card border-dark shadow mx-3 mt-2 mb-4">
-                                    <img class=”card-img-top” src=”...” alt=”...”>
+                                    <img class=”card-img-top” src="images/none.png" alt="Image indisponible">
                                     <div class="card-body">
-                                        <a href="produit.html" id="elementAvecMessage" class="stretched-link"><h5 class="card-title">Titre de la carte</h5></a>
-                                        <p class="card-text">Contenu textuel de la carte</p>
-                                        <button type="button" id="elementInterieur" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter au panier</button>
-                                        <button type="button" class="btn btn-danger"><i class="fas fa-times"></i> Retirer du panier</button>
+                                        <a href="produit.html"><h5 id="title" class="card-title">Titre</h5></a>
+                                        <div class="card-text">
+                                            <p id="description">Description</p>
+                                            <p id="reference">Référence</p>
+                                            <p id="color">Couleur</p>
+                                            <p id="price" class="text-right">Prix</p>
+                                        </div>
+                                        <button id="btnAdd" type="button" class="btn btn-primary w-100"><span id="add">Ajouter au panier</span><span id="remove">Retirer du panier</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +138,9 @@
 
 
         <!-- Optional JavaScript -->
-        <script type="text/javascript" src="donnees_api.js"></script>
+        <script type="text/javascript" src="js/donnees.js"></script>
+        <script type="text/javascript" src="js/produit.js"></script>
+        <script type="text/javascript" src="js/panier.js"></script>
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

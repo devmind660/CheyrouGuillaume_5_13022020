@@ -1,0 +1,15 @@
+body {
+    margin-top: 56px;
+}
+button > span#add {
+    display: block;
+}
+button > span#remove {
+    display: none;
+}
+button.add > span#add {
+    display: none;
+}
+button.add > span#remove {
+    display: block;
+}
