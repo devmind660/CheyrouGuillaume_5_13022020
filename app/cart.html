@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="../style/style.css" />
+        <script src="https://kit.fontawesome.com/814ebdb568.js" crossorigin="anonymous"></script>		
+        <title>Mon panier</title>
+    </head>
+    <body>
+
+        <!-- [ HEADER -->
+        <header>
+    
+            <!-- [ NAV -->
+            <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-primary">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html">
+                        <i class="fas fa-shopping-cart"></i> Orinoco
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <!-- [ MENU -->
+                    <div class="collapse navbar-collapse" id="navbarToggler">
+                        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Nos produits</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="cart.html">Mon panier</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aide</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Mentions légales</a></li>
+                                    <li><a class="dropdown-item" href="#">Retour et remboursement</a></li>
+                                    <li><a class="dropdown-item" href="#">Conditions d'utilisation</a></li>
+                                    <li><a class="dropdown-item" href="#">Politique de confidentialité</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Nous contacter</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- MENU ] -->
+
+                        <!-- [ CART -->
+                        <a class="btn btn-dark btn-sm fs-5" title="Total du panier" href="cart.html">
+                            <i class="fas fa-shopping-basket"></i>
+                            <span class="badge bg-light text-dark">
+                                <span id="productsTotal">0</span> – <span id="priceTotal">0 €</span>
+                            </span>
+                        </a>
+                        <!-- CART ] -->
+
+                    </div>
+                </div>
+            </nav>
+            <!-- NAV ] -->
+
+        </header>
+        <!-- HEADER ] -->
+
+        <!-- [ CONTENU -->
+        <main>
+
+            <!-- [ ALERTE -->
+            <div class="alert alert-success" role="alert">
+                <h1>Finalisez votre commande</h1>
+            </div>
+            <!-- ALERTE ] -->
+
+            <div class="container">
+                <div class="row">
+
+                    <!-- [ PARTIE 1 -->
+                    <section class="col-12 col-md-6">
+                        <h2 class="my-4">Mes articles</h2>
+
+                        <!-- [ GALERIE -->
+                        <div id="cartList"></div>
+                        
+                        <!-- <div class="toast-container">
+                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" data-tor-fx="show:{rotateX.from(90) pull.down(half)}">
+                                <div class="toast-header">
+                                    <img src="images/" class="rounded me-2">
+                                    <strong class="me-auto">Titre</strong>
+                                    <small class="text-muted">Référence</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Retirer du panier"></button>
+                                </div>
+                                <div class="toast-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <h4 class="text-end">0 €</h4>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- GALERIE ] -->
+
+                    </section>
+                    <!-- PARTIE 1 ] -->
+
+                    <!-- [ PARTIE 2 -->
+                    <section class="col-12 col-md-6">
+                        <h2 class="my-4">Mes informations</h2>
+
+                        <!-- [ FORMULAIRE -->
+                        <form class="container">
+                            <div class="form-group mb-3 row">
+                                <label for="lastName" class="form-label">Nom :</label>
+                                <input type="text" class="form-control" id="lastName" maxlength="24" required />
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="firstName" class="form-label">Prénom :</label>
+                                <input type="text" class="form-control" id="firstName" maxlength="24" required />
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="email" class="form-label">E-mail :</label>
+                                <input type="email" class="form-control" id="email" maxlength="24" required />
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="address" class="form-label">Adresse :</label>
+                                <input type="text" class="form-control" id="address" maxlength="48" required />
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="city" class="form-label">Ville :</label>
+                                <input type="text" class="form-control" id="city" maxlength="24" required />
+                            </div>
+                            <button type="submit" class="btn btn-success mb-3 row">Valider ma commande</button>
+                        </form>
+                        <!-- FORMULAIRE ] -->
+
+                    </section>
+                    <!-- PARTIE 2 ] -->
+
+                </div>
+            </div>
+        </main>
+        <!-- CONTENU ] -->
+
+        <!-- [ FOOTER -->
+        <footer class="navbar navbar-dark bg-dark">
+            <div class="container">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mentions légales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Retour et remboursement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Conditions d'utilisation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Politique de confidentialité</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <!-- FOOTER ] -->
+
+        <script type="module" src="../js/data_cart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    </body>
+</html>
