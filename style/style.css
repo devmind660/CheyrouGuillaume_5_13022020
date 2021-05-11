@@ -2,4 +2,12 @@ body {
   margin-top: 56px;
 }
 
+.btn-grid {
+  border-top: 1px #ced4da solid;
+}
+
+.cart-grid {
+  border-bottom: 1px #ced4da solid;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -4,6 +4,7 @@ import DOM from './DOM.js';
 export default class Product {
 
     constructor(productData) {
+        this.quantity = 1;
         Object.assign(this, productData);
     }
 
@@ -14,10 +15,10 @@ export default class Product {
         productList.appendChild(column);
 
         let card = DOM.createWithClasses('article', ['card', 'shadow', 'mx-xl-3', 'mb-5']);
-        card.style.overflow = 'hidden'
+        card.style.overflow = 'hidden';
         column.appendChild(card);
 
-        let link = DOM.createWithClasses('a', ['card-link'])
+        let link = DOM.createWithClasses('a', ['card-link']);
         link.href = 'product.html?_id=' + this._id;
         card.appendChild(link);
 
@@ -94,10 +95,24 @@ export default class Product {
             </div>
         </form>*/
 
-        let button = DOM.createWithClasses('button', ['btn', 'btn-primary', 'mb-3'])
-        button.innerHTML = 'Ajouter au panier';
-        productDesc.appendChild(button);
-        button.addEventListener('click', this._onAddToCartClick.bind(this));
+        let buttonGroup = DOM.createWithClasses('div', ['row']);
+        productDesc.appendChild(buttonGroup);
+
+        let buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
+        buttonGroup.appendChild(buttonGrid);
+
+        let buttonAdd = DOM.createWithClasses('button', ['btn', 'btn-primary', 'my-3']);
+        buttonAdd.innerHTML = '<strong>AJOUTER 1&ensp;<i class="fas fa-plus-square"></i></strong>';
+        buttonGrid.appendChild(buttonAdd);
+        buttonAdd.addEventListener('click', this._onAddToCartClick.bind(this));
+
+        buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
+        buttonGroup.appendChild(buttonGrid);
+
+        let buttonRemove = DOM.createWithClasses('button', ['btn', 'btn-danger', 'my-3']);
+        buttonRemove.innerHTML = '<strong>RETIRER 1&ensp;<i class="fas fa-minus-square"></i></strong>';
+        buttonGrid.appendChild(buttonRemove);
+        buttonRemove.addEventListener('click', this._onRemoveToCartClick.bind(this));
 
         let productImg = document.getElementById('productImg');
 
@@ -109,5 +124,19 @@ export default class Product {
     _onAddToCartClick() {
         const cart = new Cart();
         cart.add(this);
+        
+        let alert = DOM.createWithClasses('div', ['alert', 'alert-success', 'alert-dismissible', 'fade', 'show']);
+        alert.setAttribute('role', 'alert');
+        alert.innerHTML = '<i class="fas fa-check-circle"></i>&ensp;Le produit a été ajouté au panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+        productDesc.appendChild(alert);
+    }
+    _onRemoveToCartClick() {
+        const cart = new Cart();
+        cart.remove(this);
+
+        let alert = DOM.createWithClasses('div', ['alert', 'alert-danger', 'alert-dismissible', 'fade', 'show']);
+        alert.setAttribute('role', 'alert');
+        alert.innerHTML = '<i class="fas fa-times-circle"></i>&ensp;Le produit a été retiré du panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+        productDesc.appendChild(alert);
     }
 }

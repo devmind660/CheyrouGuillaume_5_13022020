@@ -5,20 +5,17 @@ export default class Cart {
 // get.Item Cart et si inexistant créer un object vide avec set.Item
     constructor() {
         let content = localStorage.getItem('cart');
-        console.log(content);
         if (content) {
             content = JSON.parse(content);
         } else {
             content = {};
             localStorage.setItem('cart', JSON.stringify(content));
         }
-        console.log(content);
         this.content = content;
     }
 
-
-        // let objetARecuperer = 'abcd';
-        /*let fakeCart = {
+    /*let objetARecuperer = 'abcd';
+        let fakeCart = {
             'abcd': {_id: 'abcd', name: 'Object1'},
             '1234': {_id: '1234', name: 'Object2'}
         };
@@ -29,12 +26,20 @@ export default class Cart {
     }*/
 
     add(product) {
-        this.content[product._id] = product;
+        if (this.content[product._id]) {
+            this.content[product._id].quantity++;
+        } else {
+            this.content[product._id] = product;
+        }
         this.updateLocalStorage();
     } // Ajouter dans this.content / Penser à enregistrer dans la session à chaque modif du panier avec set.Item
 
-    removeToCart() {
-        this.content[product._id] = product;
+    remove(product) {
+        if (this.content[product._id].quantity > 1) {
+            this.content[product._id].quantity--;
+        } else {
+            this.content[product._id] = undefined;
+        }
         this.updateLocalStorage();
     } // Retirer de this.content / Penser à enregistrer dans la session à chaque modif du panier avec set.Item
 
@@ -45,28 +50,51 @@ export default class Cart {
     display() {
         let cartList = document.getElementById('cartList');
 
-        let product = document.createElement('div');
-        cartList.appendChild(product);
+        let quantityCount = 0;
+        let totalCount = 0;
+        
+        for (const [id, productData] of Object.entries(this.content)) {
+            console.log(id, productData);
+        
+            let product = DOM.createWithClasses('div', ['row', 'cart-grid', 'mb-3']);
+            cartList.appendChild(product);
 
-        let title = document.createElement('h2');
-        title.innerHTML = this.name;
-        product.appendChild(title);
+            let productImg = DOM.createWithClasses('div', ['col-12', 'col-lg-4']);
+            product.appendChild(productImg);
 
-        let reference = document.createElement('p');
-        reference.innerHTML = this._id;
-        product.appendChild(reference);
+            let link = document.createElement('a');
+            link.href = 'product.html?_id=' + productData._id;
+            productImg.appendChild(link);
 
-        let price = DOM.createWithClasses('h4', ['text-end']);
-        price.innerHTML = this.price / 100 + ' €';
-        product.appendChild(price);
+            let image = DOM.createWithClasses('img', ['w-100', 'mb-3']);
+            image.src = productData.imageUrl;
+            image.alt = 'Ours en peluche ' + productData.name;
+            link.appendChild(image);
 
-        let button = DOM.createWithClasses('button', ['btn', 'btn-danger', 'mb-3'])
-        button.innerHTML = 'Supprimer';
-        product.appendChild(button);
-        button.addEventListener('click', this._onRemoveToCartClick.bind(this));
-    }
-    _onRemoveToCartClick() {
-        const cart = new Cart();
-        cart.remove(this);
+            let productDesc = DOM.createWithClasses('div', ['col-12', 'col-lg-8']);
+            product.appendChild(productDesc);
+
+            let title = DOM.createWithClasses('h4', ['text-uppercase', 'mb-3']);
+            title.innerHTML = '×' + productData.quantity + '&ensp;' + productData.name;
+            productDesc.appendChild(title);
+
+            let price = DOM.createWithClasses('h5', ['text-end']);
+            price.innerHTML = 'Prix : ' + productData.price / 100 + ' €';
+            productDesc.appendChild(price);
+
+            let productTotal = DOM.createWithClasses('h5', ['text-end']);
+            productTotal.innerHTML = 'Sous-total : ' + productData.price * productData.quantity / 100 + ' €';
+            productDesc.appendChild(productTotal);
+
+            quantityCount += productData.quantity;
+            totalCount += productData.quantity * productData.price;
+        }
+        if (quantityCount > 0) {
+            let cartTotal = DOM.createWithClasses('h4', ['text-end']);
+            cartTotal.innerHTML = 'TOTAL (' + quantityCount + ') : ' + totalCount / 100 + ' €';
+            cartList.appendChild(cartTotal);
+        } else {
+            cartList.innerHTML = 'Votre panier est vide.';
+        }
     }
 }

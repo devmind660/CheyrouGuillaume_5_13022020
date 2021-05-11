@@ -21,7 +21,6 @@ new Cart();
 fetch("http://localhost:3000/api/teddies")
 .then(response => response.json())
 .then(products => {
-    console.log(products);
     products.forEach(product => {
         product = new Product(product);
         product.displayList()
