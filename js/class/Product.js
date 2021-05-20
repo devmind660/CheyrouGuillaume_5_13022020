@@ -100,19 +100,33 @@ export default class Product {
 
         let buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
         buttonGroup.appendChild(buttonGrid);
-
-        let buttonAdd = DOM.createWithClasses('button', ['btn', 'btn-primary', 'my-3']);
+        let buttonAdd = DOM.createWithClasses('button', ['btn', 'btn-primary', 'mt-3']);
         buttonAdd.innerHTML = '<strong>AJOUTER 1&ensp;<i class="fas fa-plus-square"></i></strong>';
         buttonGrid.appendChild(buttonAdd);
         buttonAdd.addEventListener('click', this._onAddToCartClick.bind(this));
 
         buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
         buttonGroup.appendChild(buttonGrid);
-
-        let buttonRemove = DOM.createWithClasses('button', ['btn', 'btn-danger', 'my-3']);
+        let buttonRemove = DOM.createWithClasses('button', ['btn', 'btn-primary', 'mt-3']);
         buttonRemove.innerHTML = '<strong>RETIRER 1&ensp;<i class="fas fa-minus-square"></i></strong>';
         buttonGrid.appendChild(buttonRemove);
         buttonRemove.addEventListener('click', this._onRemoveToCartClick.bind(this));
+
+        buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
+        buttonGroup.appendChild(buttonGrid);
+        let buttonBuy = DOM.createWithClasses('a', ['btn', 'btn-success', 'mt-3']);
+        buttonBuy.setAttribute('role', 'button');
+        buttonBuy.setAttribute('href', 'cart.html');
+        buttonBuy.innerHTML = '<strong>ACHETER&ensp;<i class="fas fa-shopping-cart"></i></strong>';
+        buttonGrid.appendChild(buttonBuy);
+        buttonBuy.addEventListener('click', this._onBuyToCartClick.bind(this));
+
+        buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
+        buttonGroup.appendChild(buttonGrid);
+        let buttonDelete = DOM.createWithClasses('button', ['btn', 'btn-danger', 'mt-3']);
+        buttonDelete.innerHTML = '<strong>SUPPRIMER&ensp;<i class="fas fa-trash-alt"></i></strong>';
+        buttonGrid.appendChild(buttonDelete);
+        buttonDelete.addEventListener('click', this._onDeleteToCartClick.bind(this));
 
         let productImg = document.getElementById('productImg');
 
@@ -124,19 +138,32 @@ export default class Product {
     _onAddToCartClick() {
         const cart = new Cart();
         cart.add(this);
-        
+
         let alert = DOM.createWithClasses('div', ['alert', 'alert-success', 'alert-dismissible', 'fade', 'show']);
         alert.setAttribute('role', 'alert');
-        alert.innerHTML = '<i class="fas fa-check-circle"></i>&ensp;Le produit a été ajouté au panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+        alert.innerHTML = '<i class="fas fa-check-circle"></i>&ensp;Une peluche ' + this.name + ' a été ajoutée au panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         productDesc.appendChild(alert);
     }
     _onRemoveToCartClick() {
         const cart = new Cart();
         cart.remove(this);
 
+        let alert = DOM.createWithClasses('div', ['alert', 'alert-primary', 'alert-dismissible', 'fade', 'show']);
+        alert.setAttribute('role', 'alert');
+        alert.innerHTML = '<i class="fas fa-times-circle"></i>&ensp;Une peluche ' + this.name + ' a été retirée du panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+        productDesc.appendChild(alert);
+    }
+    _onBuyToCartClick() {
+        const cart = new Cart();
+        cart.buy(this);
+    }
+    _onDeleteToCartClick() {
+        const cart = new Cart();
+        cart.delete(this);
+
         let alert = DOM.createWithClasses('div', ['alert', 'alert-danger', 'alert-dismissible', 'fade', 'show']);
         alert.setAttribute('role', 'alert');
-        alert.innerHTML = '<i class="fas fa-times-circle"></i>&ensp;Le produit a été retiré du panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+        alert.innerHTML = '<i class="fas fa-times-circle"></i>&ensp;Toutes les peluches ' + this.name + '  ont été retirées du panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         productDesc.appendChild(alert);
     }
 }

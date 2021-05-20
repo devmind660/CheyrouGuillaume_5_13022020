@@ -32,16 +32,31 @@ export default class Cart {
             this.content[product._id] = product;
         }
         this.updateLocalStorage();
-    } // Ajouter dans this.content / Penser à enregistrer dans la session à chaque modif du panier avec set.Item
-
+    }
     remove(product) {
-        if (this.content[product._id].quantity > 1) {
-            this.content[product._id].quantity--;
-        } else {
-            this.content[product._id] = undefined;
+        if (!this.content[product._id]) {
+            return;
+        }
+        this.content[product._id].quantity--;
+
+        if (this.content[product._id].quantity <= 0) {
+            this.delete(product);
         }
         this.updateLocalStorage();
-    } // Retirer de this.content / Penser à enregistrer dans la session à chaque modif du panier avec set.Item
+    }
+    buy(product) {
+        if (!this.content[product._id]) {
+            this.content[product._id] = product;
+        }
+        this.updateLocalStorage();
+    }
+    delete(product) {
+        if (!this.content[product._id]) {
+            return;
+        }
+        this.content[product._id] = undefined;
+        this.updateLocalStorage();
+    }
 
     updateLocalStorage() {
         localStorage.setItem('cart', JSON.stringify(this.content));
@@ -95,6 +110,8 @@ export default class Cart {
             cartList.appendChild(cartTotal);
         } else {
             cartList.innerHTML = 'Votre panier est vide.';
+            let orderForm = document.getElementById('orderForm');
+            orderForm.style.display = 'none';
         }
     }
 }

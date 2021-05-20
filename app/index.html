@@ -16,7 +16,7 @@
         <header>
     
             <!-- [ NAV -->
-            <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-primary">
+            <nav class="navbar fixed-top navbar-expand-sm navbar-dark">
                 <div class="container">
                     <a class="navbar-brand" href="index.html">
                         <i class="fas fa-shopping-cart"></i> Orinoco
@@ -34,17 +34,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="cart.html">Mon panier</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aide</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Mentions légales</a></li>
-                                    <li><a class="dropdown-item" href="#">Retour et remboursement</a></li>
-                                    <li><a class="dropdown-item" href="#">Conditions d'utilisation</a></li>
-                                    <li><a class="dropdown-item" href="#">Politique de confidentialité</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Nous contacter</a></li>
-                                </ul>
-                            </li>
                         </ul>
                         <!-- MENU ] -->
 
@@ -56,56 +45,45 @@
         </header>
         <!-- HEADER ] -->
 
-        <!-- [ CONTENU -->
-        <main>
+        <div id="flex-content">
 
-            <!-- [ BANNIÈRE -->
-            <div class="text-center bg-light py-5 px-3">
-                <h1 class="display-5"><strong>Oriplush</strong><br><small>Des peluches faites à la main</small></h1>
-            </div>
-            <!-- BANNIÈRE ] -->
+            <!-- [ CONTENU -->
+            <main class="bg-light">
 
-            <div class="container">
-                <div class="row">
-
-                    <!-- [ PARTIE 1 -->
-                    <section class="col">
-                        <h2 class="my-4">Découvrez notre collection de peluche</h2>
-
-                        <!-- [ GALERIE -->
-                        <div id="productList" class="row">
-                            <!-- productList add with displayList() method in Product.js -->
-                        </div>
-                        <!-- GALERIE ] -->
-
-                    </section>
-                    <!-- PARTIE 1 ] -->
-
+                <!-- [ BANNIÈRE -->
+                <div class="banner banner-img text-center text-white text-shadow py-5 px-3">
+                    <h1 class="display-5"><strong>Oriplush</strong><br><small>Des peluches faites à la main</small></h1>
                 </div>
-            </div>
-        </main>
-        <!-- CONTENU ] -->
+                <!-- BANNIÈRE ] -->
 
-        <!-- [ FOOTER -->
-        <footer class="navbar navbar-dark bg-dark">
-            <div class="container">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mentions légales</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Retour et remboursement</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Conditions d'utilisation</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Politique de confidentialité</a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
-        <!-- FOOTER ] -->
+                <div class="container">
+                    <div class="row">
+
+                        <!-- [ PARTIE 1 -->
+                        <section class="col">
+                            <h2 class="cart-grid pb-2 my-4">Découvrez notre collection de peluche !</h2>
+
+                            <!-- [ GALERIE -->
+                            <div id="productList" class="row">
+                                <!-- productList add with displayList() method in Product.js -->
+                            </div>
+                            <!-- GALERIE ] -->
+
+                        </section>
+                        <!-- PARTIE 1 ] -->
+
+                    </div>
+                </div>
+            </main>
+            <!-- CONTENU ] -->
+
+            <!-- [ FOOTER -->
+            <footer class="bg-dark pt-3">
+                <p class="text-light text-center">© Orinoco brand 2021</p>
+            </footer>
+            <!-- FOOTER ] -->
+
+        </div>
 
         <script type="module" src="../js/data_list.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>

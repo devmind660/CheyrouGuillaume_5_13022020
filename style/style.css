@@ -1,5 +1,19 @@
-body {
-  margin-top: 56px;
+header nav {
+  background-color: #6610f2;
+}
+
+.banner {
+  background-color: #e0d0fb;
+}
+
+.banner-img {
+  background-image: url("../images/bears_plush.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 2px black;
 }
 
 .btn-grid {
@@ -8,6 +22,14 @@ body {
 
 .cart-grid {
   border-bottom: 1px #ced4da solid;
+}
+
+#flex-content {
+  height: 100vh;
+  padding-top: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /*# sourceMappingURL=style.css.map */
