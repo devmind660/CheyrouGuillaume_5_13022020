@@ -58,6 +58,10 @@ export default class Cart {
         this.updateLocalStorage();
     }
 
+    clear() {
+        this.content = {};
+        this.updateLocalStorage();
+    }
     updateLocalStorage() {
         localStorage.setItem('cart', JSON.stringify(this.content));
     }

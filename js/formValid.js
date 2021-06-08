@@ -1,3 +1,6 @@
+import Cart from './class/Cart.js';
+const cart = new Cart();
+
 let form = document.getElementById('orderForm');
 
 // Écoute de la modification des champs de texte
@@ -16,7 +19,6 @@ form.address.addEventListener("change", function() {
 form.city.addEventListener("change", function() {
     textValid(this);
 });
-
 // Validation de l'input text
 let textValid = function(textInput) {
 
@@ -85,6 +87,41 @@ const addressValid = function(addressInput) {
 form.addEventListener('submit', (e) => { 
     e.preventDefault(); // Empêche le bouton submit d'envoyer les données
     if(textValid(form.lastName) && textValid(form.firstName) && emailValid(form.email) && addressValid(form.address) && textValid(form.city) ) {
-        form.submit();
+
+        let contact = {
+            lastName : form.lastName.value,
+            firstName : form.firstName.value,
+            email : form.email.value,
+            address : form.address.value,
+            city : form.city.value
+        }
+        console.log(contact);        
+
+        let productId = Object.keys(cart.content);
+
+        let body = {
+            contact : contact,
+            products : productId
+        }
+
+        fetch("http://localhost:3000/api/teddies/order", {
+            method: 'POST',
+            headers: {
+                'content-type' : "application/json"
+            },
+            body: JSON.stringify(body),
+        })
+        .then(response => response.json())
+        .then(function (response) {
+            if (response.orderId) {
+                localStorage.setItem = "contact", JSON.stringify(contact);
+                localStorage.setItem = 'orderId', response.orderId;    
+                window.location.href = "order.html";
+            } else {
+                throw 'Pas de numéro de commande'
+            }
+        }) .catch(function (error) { /*Attrape np quel message d'erreur*/
+            console.error(error);
+        })
     }
 });
