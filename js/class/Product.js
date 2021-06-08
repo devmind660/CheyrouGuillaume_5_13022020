@@ -11,10 +11,10 @@ export default class Product {
     displayList() {
         let productList = document.getElementById('productList');
 
-        let column = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'col-lg-4']);
+        let column = DOM.createWithClasses('div', ['col']);
         productList.appendChild(column);
 
-        let card = DOM.createWithClasses('article', ['card', 'shadow', 'mx-xl-3', 'mb-5']);
+        let card = DOM.createWithClasses('article', ['card', 'shadow-sm', 'h-100']);
         card.style.overflow = 'hidden';
         column.appendChild(card);
 
@@ -24,76 +24,72 @@ export default class Product {
 
         let image = DOM.createWithClasses('img', ['card-img-top']);
         image.src = this.imageUrl;
+        image.style.height = '250px';
+        image.style.objectFit = 'cover';
         image.alt = 'Ours en peluche ' + this.name;
-        image.style.height = '200px';
         link.appendChild(image);
 
         let body = DOM.createWithClasses('div', ['card-body']);
         card.appendChild(body);
 
-        let title = DOM.createWithClasses('h3', ['card-title']);
-        title.innerHTML = this.name;
-        body.appendChild(title);
+        let name = DOM.createWithClasses('h3', ['card-title']);
+        name.innerHTML = this.name;
+        body.appendChild(name);
 
-        let text = DOM.createWithClasses('div', ['card-text']);
-        body.appendChild(text);
-
-        let description = document.createElement('p');
+        let description = DOM.createWithClasses('p', ['card-text']);
         description.innerHTML = this.description;
-        text.appendChild(description);
+        body.appendChild(description);
 
-        let price = DOM.createWithClasses('h5', ['text-end']);
-        price.innerHTML = this.price / 100 + ' €';
-        text.appendChild(price);
+        let price = DOM.createWithClasses('div', ['card-footer', 'text-end', 'fs-4']);
+        price.innerHTML = '<small class="text-muted">Prix : </small>' + this.price / 100 + ' €';
+        card.appendChild(price);
     }
 
     displayProduct() {
+        let title = document.getElementById('title');
+        title.innerHTML = '<small>Ours en peluche</small> ' + this.name;
+
         let productId = document.getElementById('productId');
-        productId.innerHTML = this._id;
+        productId.innerHTML = 'Réf : ' + this._id;
 
         let productDesc = document.getElementById('productDesc');
-        
-        let title = document.createElement('h2');
-        title.innerHTML = this.name;
-        productDesc.appendChild(title);
+      
+        let name = document.getElementById('subtitle');
+        name.innerHTML = this.name;
 
         let description = document.createElement('p');
         description.innerHTML = this.description;
         productDesc.appendChild(description);
 
         let price = DOM.createWithClasses('h4', ['text-end']);
-        price.innerHTML = this.price / 100 + ' €';
+        price.innerHTML = '<small>Prix : </small>' + this.price / 100 + ' €';
         productDesc.appendChild(price);
 
-        /*let form = document.createElement('form');
+        let form = document.createElement('form');
         productDesc.appendChild(form);
 
         let dropdown = DOM.createWithClasses('div', ['mb-3']);
         form.appendChild(dropdown);
         
-        let label = DOM.createWithClasses('label', ['colorSelector']);
-        label.innerHTML = colors + ' couleurs disponibles';
+        let label = document.createElement('label');
+        label.setAttribute('for', 'colorSelector');
+        if (this.colors.length < 2) {
+            label.innerHTML = this.colors.length + ' couleur disponible :';
+        } else {
+            label.innerHTML = this.colors.length + ' couleurs disponibles :';
+        }
         dropdown.appendChild(label);
         
         let select = DOM.createWithClasses('select', ['form-select', 'mt-2']);
         select.id = 'colorSelector';
         dropdown.appendChild(select);
 
-        object.object
-
-
-        <form>
-            <div class="mb-3">
-                <label for="colorSelector">4 couleurs disponibles</label>
-                <select class="form-select mt-2" id="colorSelector">
-                    <option value="" selected>Couleurs</option>
-                    <option value="1">Couleur 1</option>
-                    <option value="2">Couleur 2</option>
-                    <option value="3">Couleur 3</option>
-                    <option value="4">Couleur 4</option>
-                </select>
-            </div>
-        </form>*/
+        this.colors.forEach(function(item, index) {
+            let option = document.createElement('option');
+            option.setAttribute('value', index);
+            option.innerHTML = item;
+            select.appendChild(option);
+        });
 
         let buttonGroup = DOM.createWithClasses('div', ['row']);
         productDesc.appendChild(buttonGroup);
@@ -103,14 +99,14 @@ export default class Product {
         let buttonAdd = DOM.createWithClasses('button', ['btn', 'btn-primary', 'mt-3']);
         buttonAdd.innerHTML = '<strong>AJOUTER 1&ensp;<i class="fas fa-plus-square"></i></strong>';
         buttonGrid.appendChild(buttonAdd);
-        buttonAdd.addEventListener('click', this._onAddToCartClick.bind(this));
+        buttonAdd.addEventListener("click", this._onAddToCartClick.bind(this));
 
         buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
         buttonGroup.appendChild(buttonGrid);
         let buttonRemove = DOM.createWithClasses('button', ['btn', 'btn-primary', 'mt-3']);
         buttonRemove.innerHTML = '<strong>RETIRER 1&ensp;<i class="fas fa-minus-square"></i></strong>';
         buttonGrid.appendChild(buttonRemove);
-        buttonRemove.addEventListener('click', this._onRemoveToCartClick.bind(this));
+        buttonRemove.addEventListener("click", this._onRemoveToCartClick.bind(this));
 
         buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
         buttonGroup.appendChild(buttonGrid);
@@ -119,14 +115,14 @@ export default class Product {
         buttonBuy.setAttribute('href', 'cart.html');
         buttonBuy.innerHTML = '<strong>ACHETER&ensp;<i class="fas fa-shopping-cart"></i></strong>';
         buttonGrid.appendChild(buttonBuy);
-        buttonBuy.addEventListener('click', this._onBuyToCartClick.bind(this));
+        buttonBuy.addEventListener("click", this._onBuyToCartClick.bind(this));
 
         buttonGrid = DOM.createWithClasses('div', ['col-12', 'col-sm-6', 'd-grid', 'mb-3', 'btn-grid']);
         buttonGroup.appendChild(buttonGrid);
         let buttonDelete = DOM.createWithClasses('button', ['btn', 'btn-danger', 'mt-3']);
         buttonDelete.innerHTML = '<strong>SUPPRIMER&ensp;<i class="fas fa-trash-alt"></i></strong>';
         buttonGrid.appendChild(buttonDelete);
-        buttonDelete.addEventListener('click', this._onDeleteToCartClick.bind(this));
+        buttonDelete.addEventListener("click", this._onDeleteToCartClick.bind(this));
 
         let productImg = document.getElementById('productImg');
 
@@ -135,6 +131,7 @@ export default class Product {
         image.alt = 'Ours en peluche ' + this.name;
         productImg.appendChild(image);
     }
+    
     _onAddToCartClick() {
         const cart = new Cart();
         cart.add(this);
@@ -165,5 +162,61 @@ export default class Product {
         alert.setAttribute('role', 'alert');
         alert.innerHTML = '<i class="fas fa-times-circle"></i>&ensp;Toutes les peluches ' + this.name + '  ont été retirées du panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         productDesc.appendChild(alert);
+    }
+
+    displayOrder() {
+        let ordertList = document.getElementById('orderList');
+        
+        for (const [id, productData] of Object.entries(this.content)) {
+            console.log(id, productData);
+    
+            let column = DOM.createWithClasses('div', ['col']);
+            ordertList.appendChild(column);
+    
+            let card = DOM.createWithClasses('article', ['card', 'shadow-sm']);
+            card.style.overflow = 'hidden';
+            column.appendChild(card);
+    
+            let row = DOM.createWithClasses('div', ['row', 'g-0']);
+            card.appendChild(row);
+    
+            let productImg = DOM.createWithClasses('div', ['col-sm-4', 'col-md-12', 'col-lg-4', 'bg-light']);
+            row.appendChild(productImg);
+    
+            let link = DOM.createWithClasses('a', ['card-link']);
+            link.href = 'product.html?_id=' + productData._id;
+            productImg.appendChild(link);
+    
+            let image = DOM.createWithClasses('img', ['card-img-top', 'h-100']);
+            image.src = productData.imageUrl;
+            image.style.objectFit = 'cover';    
+            image.alt = 'Ours en peluche ' + productData.name;
+            link.appendChild(image);
+    
+            let productDesc = DOM.createWithClasses('div', ['col-sm-8', 'col-md-12', 'col-lg-8']);
+            row.appendChild(productDesc);
+    
+            let body = DOM.createWithClasses('div', ['card-body', 'row']);
+            productDesc.appendChild(body);
+    
+            let name = DOM.createWithClasses('div', ['card-title', 'fs-4', 'text-truncate', 'col-12']);
+            name.innerHTML = productData.name;
+            body.appendChild(name);
+        
+            let quantity = DOM.createWithClasses('div', ['card-text', 'text-end', 'text-truncate', 'fs-5', 'col-4']);
+            quantity.innerHTML = '<small class="text-muted">Quantité<br></small>' + '× ' + productData.quantity;
+            body.appendChild(quantity);
+    
+            let unitPrice = DOM.createWithClasses('div', ['card-text', 'text-end', 'text-truncate', 'fs-5', 'col-4']);
+            unitPrice.innerHTML = '<small class="text-muted">Prix unitaire<br></small>' + productData.price / 100 + ' €';
+            body.appendChild(unitPrice);
+    
+            let totalPrice = DOM.createWithClasses('div', ['card-text', 'text-end', 'text-truncate', 'fs-5', 'col-4']);
+            totalPrice.innerHTML = '<small class="text-muted">Sous-total<br></small>' + productData.price * productData.quantity / 100 + ' €';
+            body.appendChild(totalPrice);
+            
+            quantityCount += productData.quantity;
+            totalCount += productData.quantity * productData.price;
+        }
     }
 }

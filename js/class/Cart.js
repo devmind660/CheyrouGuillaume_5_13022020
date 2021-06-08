@@ -70,37 +70,52 @@ export default class Cart {
         
         for (const [id, productData] of Object.entries(this.content)) {
             console.log(id, productData);
-        
-            let product = DOM.createWithClasses('div', ['row', 'cart-grid', 'mb-3']);
-            cartList.appendChild(product);
 
-            let productImg = DOM.createWithClasses('div', ['col-12', 'col-lg-4']);
-            product.appendChild(productImg);
+            let column = DOM.createWithClasses('div', ['col']);
+            cartList.appendChild(column);
+    
+            let card = DOM.createWithClasses('article', ['card', 'shadow-sm']);
+            card.style.overflow = 'hidden';
+            column.appendChild(card);
 
-            let link = document.createElement('a');
+            let row = DOM.createWithClasses('div', ['row', 'g-0']);
+            card.appendChild(row);
+
+            let productImg = DOM.createWithClasses('div', ['col-sm-4', 'col-md-12', 'col-lg-4', 'bg-light']);
+            row.appendChild(productImg);
+
+            let link = DOM.createWithClasses('a', ['card-link']);
             link.href = 'product.html?_id=' + productData._id;
             productImg.appendChild(link);
 
-            let image = DOM.createWithClasses('img', ['w-100', 'mb-3']);
+            let image = DOM.createWithClasses('img', ['card-img-top', 'h-100']);
             image.src = productData.imageUrl;
+            image.style.objectFit = 'cover';    
             image.alt = 'Ours en peluche ' + productData.name;
             link.appendChild(image);
 
-            let productDesc = DOM.createWithClasses('div', ['col-12', 'col-lg-8']);
-            product.appendChild(productDesc);
+            let productDesc = DOM.createWithClasses('div', ['col-sm-8', 'col-md-12', 'col-lg-8']);
+            row.appendChild(productDesc);
 
-            let title = DOM.createWithClasses('h4', ['text-uppercase', 'mb-3']);
-            title.innerHTML = '×' + productData.quantity + '&ensp;' + productData.name;
-            productDesc.appendChild(title);
+            let body = DOM.createWithClasses('div', ['card-body', 'row']);
+            productDesc.appendChild(body);
+    
+            let name = DOM.createWithClasses('div', ['card-title', 'fs-4', 'text-truncate', 'col-12']);
+            name.innerHTML = productData.name;
+            body.appendChild(name);
+        
+            let quantity = DOM.createWithClasses('div', ['card-text', 'text-end', 'text-truncate', 'fs-5', 'col-4']);
+            quantity.innerHTML = '<small class="text-muted">Quantité<br></small>' + '× ' + productData.quantity;
+            body.appendChild(quantity);
 
-            let price = DOM.createWithClasses('h5', ['text-end']);
-            price.innerHTML = 'Prix : ' + productData.price / 100 + ' €';
-            productDesc.appendChild(price);
+            let unitPrice = DOM.createWithClasses('div', ['card-text', 'text-end', 'text-truncate', 'fs-5', 'col-4']);
+            unitPrice.innerHTML = '<small class="text-muted">Prix unitaire<br></small>' + productData.price / 100 + ' €';
+            body.appendChild(unitPrice);
 
-            let productTotal = DOM.createWithClasses('h5', ['text-end']);
-            productTotal.innerHTML = 'Sous-total : ' + productData.price * productData.quantity / 100 + ' €';
-            productDesc.appendChild(productTotal);
-
+            let totalPrice = DOM.createWithClasses('div', ['card-text', 'text-end', 'text-truncate', 'fs-5', 'col-4']);
+            totalPrice.innerHTML = '<small class="text-muted">Sous-total<br></small>' + productData.price * productData.quantity / 100 + ' €';
+            body.appendChild(totalPrice);
+            
             quantityCount += productData.quantity;
             totalCount += productData.quantity * productData.price;
         }
@@ -110,8 +125,8 @@ export default class Cart {
             cartList.appendChild(cartTotal);
         } else {
             cartList.innerHTML = 'Votre panier est vide.';
-            let orderForm = document.getElementById('orderForm');
-            orderForm.style.display = 'none';
+            let formSection = document.getElementById('formSection');
+            formSection.style.display = 'none';
         }
     }
 }
