@@ -2,7 +2,6 @@ import DOM from './DOM.js';
 
 export default class Cart {
 
-// get.Item Cart et si inexistant créer un object vide avec set.Item
     constructor() {
         let content = localStorage.getItem('cart');
         if (content) {
@@ -14,17 +13,7 @@ export default class Cart {
         this.content = content;
     }
 
-    /*let objetARecuperer = 'abcd';
-        let fakeCart = {
-            'abcd': {_id: 'abcd', name: 'Object1'},
-            '1234': {_id: '1234', name: 'Object2'}
-        };
-        localStorage.setItem('cart', JSON.stringify(fakeCart));
-        console.log(fakeCart[objetARecuperer]) // syntaxe pour avoir la valeur objetARecuperer de l'objet fakeCart
-        // stocker le contenu de get.Item
-        // this.content =
-    }*/
-
+    // Ajouter le produit au panier
     add(product) {
         if (this.content[product._id]) {
             this.content[product._id].quantity++;
@@ -33,6 +22,8 @@ export default class Cart {
         }
         this.updateLocalStorage();
     }
+    
+    // Retirer le produit au panier
     remove(product) {
         if (!this.content[product._id]) {
             return;
@@ -44,12 +35,16 @@ export default class Cart {
         }
         this.updateLocalStorage();
     }
+
+    // Achter le produit
     buy(product) {
         if (!this.content[product._id]) {
             this.content[product._id] = product;
         }
         this.updateLocalStorage();
     }
+
+    // Supprimer le produit
     delete(product) {
         if (!this.content[product._id]) {
             return;
@@ -58,14 +53,12 @@ export default class Cart {
         this.updateLocalStorage();
     }
 
-    clear() {
-        this.content = {};
-        this.updateLocalStorage();
-    }
+    // Mise à jour du localstorage
     updateLocalStorage() {
         localStorage.setItem('cart', JSON.stringify(this.content));
     }
 
+    // Affichage du panier
     display() {
         let cartList = document.getElementById('cartList');
 
@@ -124,13 +117,19 @@ export default class Cart {
             totalCount += productData.quantity * productData.price;
         }
         if (quantityCount > 0) {
-            let cartTotal = DOM.createWithClasses('h4', ['text-end']);
+            let cartTotal = document.getElementById('cartTotal');
+            cartTotal.classList.add('text-end');
             cartTotal.innerHTML = 'TOTAL (' + quantityCount + ') : ' + totalCount / 100 + ' €';
             cartList.appendChild(cartTotal);
         } else {
-            cartList.innerHTML = 'Votre panier est vide.';
             let formSection = document.getElementById('formSection');
             formSection.style.display = 'none';
         }
+    }
+
+    // Suppression du panier
+    clear() {
+        this.content = {};
+        this.updateLocalStorage();
     }
 }

@@ -95,7 +95,6 @@ form.addEventListener('submit', (e) => {
             address : form.address.value,
             city : form.city.value
         }
-        console.log(contact);        
 
         let productId = Object.keys(cart.content);
 
@@ -120,7 +119,7 @@ form.addEventListener('submit', (e) => {
             } else {
                 throw 'Pas de numéro de commande'
             }
-        }) .catch(function (error) { /*Attrape np quel message d'erreur*/
+        }) .catch(function (error) { // Attrape np quel message d'erreur
             console.error(error);
         })
     }

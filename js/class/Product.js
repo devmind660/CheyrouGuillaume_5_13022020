@@ -8,6 +8,7 @@ export default class Product {
         Object.assign(this, productData);
     }
 
+    // Affichage de la liste des produits
     displayList() {
         let productList = document.getElementById('productList');
 
@@ -45,6 +46,7 @@ export default class Product {
         card.appendChild(price);
     }
 
+    // Affichage des détails du produit
     displayProduct() {
         let title = document.getElementById('title');
         title.innerHTML = '<small>Ours en peluche</small> ' + this.name;
@@ -132,6 +134,7 @@ export default class Product {
         productImg.appendChild(image);
     }
     
+    // Appel de la méthode d'ajout du produit dans le panier
     _onAddToCartClick() {
         const cart = new Cart();
         cart.add(this);
@@ -141,6 +144,8 @@ export default class Product {
         alert.innerHTML = '<i class="fas fa-check-circle"></i>&ensp;Une peluche ' + this.name + ' a été ajoutée au panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         productDesc.appendChild(alert);
     }
+
+    // Appel de la méthode de retrait du produit dans le panier
     _onRemoveToCartClick() {
         const cart = new Cart();
         cart.remove(this);
@@ -150,10 +155,14 @@ export default class Product {
         alert.innerHTML = '<i class="fas fa-times-circle"></i>&ensp;Une peluche ' + this.name + ' a été retirée du panier.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         productDesc.appendChild(alert);
     }
+
+    // Appel de la méthode d'ajout du produit au panier si le produit n'existe pas
     _onBuyToCartClick() {
         const cart = new Cart();
         cart.buy(this);
     }
+
+    // Appel de la méthode de suppressiondu produit dans le panier
     _onDeleteToCartClick() {
         const cart = new Cart();
         cart.delete(this);
