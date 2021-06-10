@@ -1,4 +1,5 @@
 import Cart from './class/Cart.js';
+
 const cart = new Cart();
 
 let form = document.getElementById('orderForm');
@@ -19,13 +20,13 @@ form.address.addEventListener("change", function() {
 form.city.addEventListener("change", function() {
     textValid(this);
 });
+
 // Validation de l'input text
 let textValid = function(textInput) {
 
     // RegExp text
     let textRegExp = new RegExp('.{2,}', 'g');
     
-
     // Récupération de la balise <small>
     let errorMessage = textInput.nextElementSibling;
 
@@ -113,13 +114,12 @@ form.addEventListener('submit', (e) => {
         .then(response => response.json())
         .then(function (response) {
             if (response.orderId) {
-                localStorage.setItem = "contact", JSON.stringify(contact);
-                localStorage.setItem = 'orderId', response.orderId;    
-                window.location.href = "order.html";
+                localStorage.setItem('orderId', response.orderId);
+                window.location.href = "order.html";    
             } else {
                 throw 'Pas de numéro de commande'
             }
-        }) .catch(function (error) { // Attrape np quel message d'erreur
+        }) .catch(function (error) {
             console.error(error);
         })
     }

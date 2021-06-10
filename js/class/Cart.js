@@ -23,7 +23,7 @@ export default class Cart {
         this.updateLocalStorage();
     }
     
-    // Retirer le produit au panier
+    // Retirer le produit du panier
     remove(product) {
         if (!this.content[product._id]) {
             return;
@@ -36,7 +36,7 @@ export default class Cart {
         this.updateLocalStorage();
     }
 
-    // Achter le produit
+    // Acheter le produit
     buy(product) {
         if (!this.content[product._id]) {
             this.content[product._id] = product;
@@ -53,13 +53,13 @@ export default class Cart {
         this.updateLocalStorage();
     }
 
-    // Mise à jour du localstorage
+    // Mise à jour du local storage
     updateLocalStorage() {
         localStorage.setItem('cart', JSON.stringify(this.content));
     }
 
     // Affichage du panier
-    display() {
+    displayCart() {
         let cartList = document.getElementById('cartList');
 
         let quantityCount = 0;
@@ -122,13 +122,13 @@ export default class Cart {
             cartTotal.innerHTML = 'TOTAL (' + quantityCount + ') : ' + totalCount / 100 + ' €';
             cartList.appendChild(cartTotal);
         } else {
-            let formSection = document.getElementById('formSection');
-            formSection.style.display = 'none';
+            let secondSection = document.getElementById('secondSection');
+            secondSection.style.display = 'none';
         }
     }
 
     // Suppression du panier
-    clear() {
+    clearCart() {
         this.content = {};
         this.updateLocalStorage();
     }

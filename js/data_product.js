@@ -11,4 +11,4 @@ fetch("http://localhost:3000/api/teddies/" + currentId)
 .then(product => {
     product = new Product(product);
     product.displayProduct()
-});
+})
